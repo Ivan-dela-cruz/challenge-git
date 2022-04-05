@@ -1,3 +1,3 @@
-function getMessage() {
-    return 'HOla';
+function getMessagePersons() {
+    return 'Hola';
 }
