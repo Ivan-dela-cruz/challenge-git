@@ -2,10 +2,10 @@
   <div class="container">
     <div class="screen">
       <div class="login">
-      <h1 class="title">{{ msg }}</h1>
-      <input class="input input-email" type="email" placeholder="Ingrese su correo">
-      <input class="input input-password" type="password" placeholder="Ingese su contraseña">
-      <button class="btn btn-login" type="submit">Login</button>
+      <h1 class="title">Login</h1>
+      <input v-model="email" class="input input-email" type="email" placeholder="Ingrese su correo">
+      <input v-model="password" class="input input-password" type="password" placeholder="Ingese su contraseña">
+      <button @click="authLogin" class="btn btn-login" type="submit">Login</button>
     </div>
     </div>
   </div>
@@ -13,12 +13,39 @@
 </template>
 
 <script>
+
+import axios from 'axios'
+
+
+function data() {
+  return {
+    email: this.email,
+    password: this.password,
+    codeApp: 'quipuadmin',
+  }
+}
+
+function authLogin() {
+  const urlAPI = 'https://ec-acl.makipos.la/api/'
+  axios.post(urlAPI + 'authenticate', {
+    email: this.email,
+    password: this.password,
+    codeApp: 'quipuadmin',
+  })
+  .then(function (response) {
+    const { token } = response.data
+    localStorage.setItem('token', token)
+  })
+  .catch(function (error) {
+    console.log(error);
+  });
+}
+
 export default {
   name: 'HelloWorld',
-  props: {
-    msg: String,
-    email: String,
-    password: String,
+  data,
+  methods:{
+    authLogin,
   }
 }
 </script>
