@@ -45,6 +45,8 @@ function sendAutentication(){
     });
 }
 
+
+
 export default {
     name: 'userLogin',
     data,
