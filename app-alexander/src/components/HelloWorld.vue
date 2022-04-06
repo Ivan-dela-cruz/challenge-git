@@ -9,7 +9,6 @@
     </div>
     </div>
   </div>
-
 </template>
 
 <script>
@@ -40,6 +39,7 @@ function authLogin() {
     console.log(error);
   });
 }
+
 
 export default {
   name: 'HelloWorld',
