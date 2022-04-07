@@ -4,28 +4,55 @@
       <div class="text-center">
           <h1>Login</h1>
       </div>
-      <form action="" class="form">
-            <div class="form-group">
-                <label for="" class="text-center">Username</label>
-                <input type="text" class="form-control">
-            </div>
-            
-            <div class="form-group">
-                <label for="">Password</label>
-                <input type="password" class="form-control">
-            </div>
-            <div>
-                <button class="btn">Submit</button>
-            </div>
-      </form>
-      
+
+        <div class="form-group">
+            <label for="" class="text-center">Email</label>
+            <input type="email" class="form-control" v-model="email">
+        </div>
+        
+        <div class="form-group">
+            <label for="">Password</label>
+            <input type="password" class="form-control" v-model="password">
+        </div>
+        <div>
+            <button class="btn" @click="sendAutentication">Submit</button>
+        </div>  
   </div>
 </div>
 </template>
 
 <script>
+import axios from 'axios';
+
+function data(){
+    return {
+        email: '',
+        password: '',
+        codeApp: 'quipuadmin'
+    }
+}
+
+function sendAutentication(){
+    axios.post('https://ec-acl.makipos.la/api/authenticate',
+        {
+            "email": this.email,
+            "password": this.password,
+            "codeApp": this.codeApp
+        }
+    ).then((response)=>{
+        const {token} = response.data;
+        localStorage.setItem('token', token);
+    });
+}
+
+
+
 export default {
-    name: 'userLogin'
+    name: 'userLogin',
+    data,
+    methods:{
+        sendAutentication
+    }
 }
 </script>
 
